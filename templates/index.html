@@ -614,7 +614,7 @@ document.getElementById('chatForm').addEventListener('submit', function(event) {
         // Replace typing indicator with actual response
         botContainer.appendChild(botDiv);
         chatArea.scrollTop = chatArea.scrollHeight;
-        
+        botContainer.appendChild(botTime);
         // Re-enable input
         questionInput.disabled = false;
         sendButton.disabled = false;
