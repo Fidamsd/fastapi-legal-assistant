@@ -439,8 +439,8 @@
                 {% if m.question %}
                     <div class="message-container">
                         <div class="timestamp user">
-                            <!-- {{ m.created_at.strftime('%I:%M %p') }} -->
-                            {{ m.created_at.astimezone(pytz.timezone('Asia/Karachi')).strftime('%I:%M %p') }}
+                            {{ m.created_at.strftime('%I:%M %p') }}
+                            <!-- {{ m.created_at.astimezone(pytz.timezone('Asia/Karachi')).strftime('%I:%M %p') }} -->
 
                         </div>
                         <div class="message user">
@@ -654,12 +654,41 @@ window.addEventListener("load", () => {
 });
 
 // Add copy functionality to message actions
+// document.addEventListener('click', function(e) {
+//     if (e.target.classList.contains('message-action') && e.target.textContent === '⎘') {
+//         const message = e.target.closest('.message');
+//         const textToCopy = message.textContent.replace('⎘', '').trim();
+        
+//         navigator.clipboard.writeText(textToCopy).then(() => {
+//             const originalText = e.target.textContent;
+//             e.target.textContent = '✓';
+//             setTimeout(() => {
+//                 e.target.textContent = originalText;
+//             }, 2000);
+//         });
+//     }
+// });
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('message-action') && e.target.textContent === '⎘') {
         const message = e.target.closest('.message');
         const textToCopy = message.textContent.replace('⎘', '').trim();
-        
+
+        // ✅ Try modern Clipboard API
         navigator.clipboard.writeText(textToCopy).then(() => {
+            const originalText = e.target.textContent;
+            e.target.textContent = '✓';
+            setTimeout(() => {
+                e.target.textContent = originalText;
+            }, 2000);
+        }).catch(() => {
+            // ✅ Fallback method if Clipboard API is blocked
+            const textarea = document.createElement("textarea");
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+
             const originalText = e.target.textContent;
             e.target.textContent = '✓';
             setTimeout(() => {
@@ -668,6 +697,7 @@ document.addEventListener('click', function(e) {
         });
     }
 });
+
 </script>
 
 </body>
