@@ -380,6 +380,10 @@
                 max-width: 85%;
             }
         }
+
+
+      
+   
     </style>
 </head>
 <body>
@@ -438,24 +442,30 @@
             {% for m in chat.messages %}
                 {% if m.question %}
                     <div class="message-container">
-                        <div class="timestamp user">
+                        <!-- <div class="timestamp user">
                             {{ m.created_at.strftime('%I:%M %p') }}
-                            <!-- {{ m.created_at.astimezone(pytz.timezone('Asia/Karachi')).strftime('%I:%M %p') }} -->
+                              {{ m.created_at.astimezone(pytz.timezone('Asia/Karachi')).strftime('%I:%M %p') }}  -->
 
-                        </div>
+                        </div>  
                         <div class="message user">
                             {{ m.question }}
-                            <div class="message-actions">
+                            <!-- <div class="message-actions">
                                 <button class="message-action" title="Copy">⎘</button>
-                            </div>
+                            </div> -->
+                             
                         </div>
+                         <div class="timestamp user">
+                            {{ m.created_at.strftime('%I:%M %p') }}
+                             <!-- {{ m.created_at.astimezone(pytz.timezone('Asia/Karachi')).strftime('%I:%M %p') }}  -->
+
+                        </div> 
                     </div>
                 {% endif %}
                 {% if m.answer %}
                     <div class="message-container">
-                        <div class="timestamp bot">
+                        <!-- <div class="timestamp bot">
                             {{ m.created_at.strftime('%I:%M %p') }}
-                        </div>
+                        </div> -->
                         <div class="bot-header">
                             <div class="bot-avatar">LA</div>
                             <div class="bot-name">Legal Assistant AI</div>
@@ -465,6 +475,10 @@
                             <div class="message-actions">
                                 <button class="message-action" title="Copy">⎘</button>
                             </div>
+                             
+                        </div>
+                        <div class="timestamp bot">
+                            {{ m.created_at.strftime('%I:%M %p') }}
                         </div>
                     </div>
                 {% endif %}
@@ -512,20 +526,21 @@ document.getElementById('chatForm').addEventListener('submit', function(event) {
     // Add user message container
     const userContainer = document.createElement('div');
     userContainer.className = 'message-container';
-    userContainer.appendChild(userTime);
+  
 
     // Add user message
     const userDiv = document.createElement('div');
     userDiv.className = 'message user';
     userDiv.textContent = userMessage;
-
-    // Add message actions
-    const messageActions = document.createElement('div');
-    messageActions.className = 'message-actions';
-    messageActions.innerHTML = '<button class="message-action" title="Copy">⎘</button>';
-    userDiv.appendChild(messageActions);
-
     userContainer.appendChild(userDiv);
+  
+    // Add message actions
+    // const messageActions = document.createElement('div');
+    // messageActions.className = 'message-actions';
+    // messageActions.innerHTML = '<button class="message-action" title="Copy">⎘</button>';
+    // userDiv.appendChild(messageActions);
+
+    userContainer.appendChild(userTime);
     chatArea.appendChild(userContainer);
 
     // Add bot header container
@@ -536,7 +551,7 @@ document.getElementById('chatForm').addEventListener('submit', function(event) {
     const botTime = document.createElement('div');
     botTime.className = 'timestamp bot';
     botTime.textContent = timestamp;
-    botContainer.appendChild(botTime);
+    
 
     // Add bot header (icon + name)
     const botHeader = document.createElement('div');
@@ -592,11 +607,14 @@ document.getElementById('chatForm').addEventListener('submit', function(event) {
         botMessageActions.className = 'message-actions';
         botMessageActions.innerHTML = '<button class="message-action" title="Copy">⎘</button>';
         botDiv.appendChild(botMessageActions);
+        
 
+
+        botContainer.appendChild(botTime);
         // Replace typing indicator with actual response
         botContainer.appendChild(botDiv);
         chatArea.scrollTop = chatArea.scrollHeight;
-
+        
         // Re-enable input
         questionInput.disabled = false;
         sendButton.disabled = false;
