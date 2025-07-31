@@ -6,9 +6,18 @@
   <meta charset="UTF-8">
   <title>Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
+
+  </style>
 </head>
 <body class="bg-gray-0 flex items-center justify-center min-h-screen">
   <div class="bg-white p-9 rounded-lg shadow-md w-full max-w-md">
+    
+   <div class="flex justify-center mb-4">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Icon" 
+         class="w-16 h-16 rounded-full border-2 border-blue-500 p-1 bg-white">
+</div>
+
     <h2 class="text-2xl font-semibold text-center mb-6">Login</h2>
     <form action="/login" method="post" class="space-y-4">
       <div>
@@ -21,7 +30,7 @@
       </div>
       <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">Login</button>
     </form>
-    <p class="text-center text-sm mt-4 text-gray-600">
+    <p class="text-center text-sm mt-0 text-gray-600">
       Don't have an account?
       <a href="/register" class="text-blue-500 hover:underline">Register</a>
     </p>
